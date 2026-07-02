@@ -11,9 +11,9 @@ import { AlertTriangle, BellRing, CalendarClock, ChevronRight, Eye, IdCard, Plus
 // No recurring per-seat billing — onboarding is a first-few-months journey.
 const PRICING_TIERS = [
   { size: 'Up to 50 employees', note: 'Pay as you hire', price: 'AED 249', per: 'per hire, one-time', min: 0, max: 50 },
-  { size: '51 – 500 employees', note: 'Annual hiring volume', price: 'AED 199', per: 'per hire, one-time', min: 51, max: 500 },
-  { size: '501 – 10,000 employees', note: 'Dedicated success manager', price: 'AED 149', per: 'per hire, one-time', min: 501, max: 10000 },
-  { size: '10,000+ employees', note: 'Custom SLAs & integrations', price: 'Custom', per: 'volume deal', min: 10001, max: Infinity },
+  { size: '51 – 500 employees', note: 'Annual hiring volume', price: 'Contact us', per: 'for more information', min: 51, max: 500 },
+  { size: '501 – 10,000 employees', note: 'Dedicated success manager', price: 'Contact us', per: 'for more information', min: 501, max: 10000 },
+  { size: '10,000+ employees', note: 'Custom SLAs & integrations', price: 'Contact us', per: 'for more information', min: 10001, max: Infinity },
 ];
 
 // Ahlan Monitor — the recurring layer. Onboarding is one-time, but staying
