@@ -1,8 +1,8 @@
 import { useApp } from '../context/AppContext.jsx';
-import { User, Building2, ArrowRight } from 'lucide-react';
+import { User, UserCheck, Building2, ArrowRight } from 'lucide-react';
 
 export function Welcome() {
-  const { navigate, loadPersona } = useApp();
+  const { navigate, loadPersona, loadEmployeePersona } = useApp();
 
   return (
     <div className="flex flex-col min-h-full screen-in">
@@ -39,6 +39,24 @@ export function Welcome() {
               <div className="font-extrabold text-slate-900 text-lg">I'm an individual</div>
               <div className="text-sm text-slate-500 mt-0.5">
                 Get your personalized settling-in roadmap
+              </div>
+            </div>
+            <ArrowRight className="w-5 h-5 text-slate-300 group-hover:text-brand-500 group-hover:translate-x-0.5 transition" />
+          </div>
+        </button>
+
+        <button
+          onClick={loadEmployeePersona}
+          className="group text-left rounded-3xl p-5 bg-white ring-1 ring-slate-200 shadow-sm hover:shadow-lg hover:ring-brand-300 active:scale-[0.99] transition mb-4"
+        >
+          <div className="flex items-center gap-4">
+            <div className="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+              <UserCheck className="w-7 h-7" />
+            </div>
+            <div className="flex-1">
+              <div className="font-extrabold text-slate-900 text-lg">I'm an employee</div>
+              <div className="text-sm text-slate-500 mt-0.5">
+                See the roadmap your company set up for you
               </div>
             </div>
             <ArrowRight className="w-5 h-5 text-slate-300 group-hover:text-brand-500 group-hover:translate-x-0.5 transition" />

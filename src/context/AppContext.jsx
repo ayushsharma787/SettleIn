@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useMemo, useState } from 'react';
 import { buildRoadmap } from '../lib/roadmap.js';
 import { PRIYA_ANSWERS, PRIYA_PROFILE } from '../data/persona.js';
-import { EMPLOYEES } from '../data/employer.js';
+import { COMPANY, EMPLOYEES, employeeRoadmap } from '../data/employer.js';
 
 const AppContext = createContext(null);
 
@@ -64,6 +64,18 @@ export function AppProvider({ children, initialScreen = 'welcome', previewMode =
     scrollTop();
   }, [scrollTop]);
 
+  // Employee mode: the roadmap of a team member whose company runs Ahlan for
+  // Business (James Miller at Nexa Tech) — same screens, employee's data.
+  const loadEmployeePersona = useCallback(() => {
+    const emp = EMPLOYEES.find((e) => e.id === 'james') || EMPLOYEES[0];
+    setProfile({ name: emp.name, initials: emp.initials, company: COMPANY.name });
+    setAnswers(emp.answers);
+    const { stepIds, completed } = employeeRoadmap(emp);
+    setRoadmap({ stepIds, completed });
+    setHistory(['roadmap']);
+    scrollTop();
+  }, [scrollTop]);
+
   const openStep = useCallback((stepId) => {
     setActiveStepId(stepId);
     navigate('stepDetail');
@@ -117,13 +129,13 @@ export function AppProvider({ children, initialScreen = 'welcome', previewMode =
     () => ({
       screen, navigate, goBack, resetTo, gotoScreen, previewMode,
       profile, answers, roadmap,
-      startQuestionnaire, finishQuestionnaire, loadPersona,
+      startQuestionnaire, finishQuestionnaire, loadPersona, loadEmployeePersona,
       activeStepId, openStep, previewStep, completeStep, justUnlockedId,
       employees, activeEmployeeId, openEmployee, addEmployee,
       canGoBack: history.length > 1,
     }),
     [screen, navigate, goBack, resetTo, gotoScreen, previewMode, profile, answers, roadmap,
-     startQuestionnaire, finishQuestionnaire, loadPersona, activeStepId, openStep, previewStep,
+     startQuestionnaire, finishQuestionnaire, loadPersona, loadEmployeePersona, activeStepId, openStep, previewStep,
      completeStep, justUnlockedId, employees, activeEmployeeId, openEmployee, addEmployee, history.length],
   );
 

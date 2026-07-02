@@ -51,7 +51,9 @@ export function Roadmap() {
               {profile.name === 'You' ? 'Your roadmap' : profile.name}
             </div>
             <div className="text-xs text-slate-500 truncate">
-              {[answers.visaType, answers.emirate, answers.family].filter(Boolean).join(' · ')}
+              {[profile.company && `Sponsored by ${profile.company}`, answers.visaType, answers.emirate, answers.family]
+                .filter(Boolean)
+                .join(' · ')}
             </div>
           </div>
         </div>
