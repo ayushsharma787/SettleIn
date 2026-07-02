@@ -8,7 +8,7 @@ import { Logo } from '../components/Logo.jsx';
 import { Calculator, Crown, Sparkles, RefreshCw, X } from 'lucide-react';
 
 export function Roadmap() {
-  const { profile, answers, roadmap, openStep, navigate, startQuestionnaire, justUnlockedId } = useApp();
+  const { profile, answers, roadmap, openStep, navigate, resetTo, startQuestionnaire, justUnlockedId } = useApp();
   const { stepIds, completed } = roadmap;
   const { done, total, pct } = progressFor(stepIds, completed);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -21,7 +21,16 @@ export function Roadmap() {
       {/* Header */}
       <div className="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-slate-100">
         <div className="px-4 h-14 flex items-center justify-between">
-          <Logo size="sm" />
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => resetTo('welcome')}
+              aria-label="Back to home"
+              className="w-9 h-9 -ml-1.5 rounded-full flex items-center justify-center text-slate-600 hover:bg-slate-100 active:scale-95 transition"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
+            </button>
+            <Logo size="sm" />
+          </div>
           <button
             onClick={() => setMenuOpen(true)}
             className="text-xs font-bold text-brand-700 bg-brand-50 rounded-full px-3 py-1.5 ring-1 ring-brand-100 hover:bg-brand-100 transition inline-flex items-center gap-1.5"

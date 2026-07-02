@@ -5,7 +5,7 @@ import { TopBar } from '../components/PhoneFrame.jsx';
 import { Icon } from '../components/Icon.jsx';
 
 export function Questionnaire() {
-  const { navigate, goBack, finishQuestionnaire } = useApp();
+  const { navigate, goBack, resetTo, canGoBack, finishQuestionnaire } = useApp();
   const [idx, setIdx] = useState(0);
   const [local, setLocal] = useState({});
   const q = QUESTIONS[idx];
@@ -25,8 +25,11 @@ export function Questionnaire() {
   };
 
   const back = () => {
-    if (idx === 0) goBack();
-    else setIdx(idx - 1);
+    if (idx > 0) setIdx(idx - 1);
+    // When the questionnaire was started via a history reset (e.g. "Restart
+    // questionnaire"), there is nothing to go back to — drive home instead.
+    else if (canGoBack) goBack();
+    else resetTo('welcome');
   };
 
   return (
