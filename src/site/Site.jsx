@@ -11,9 +11,11 @@ import { LiveOverlay } from './LiveOverlay.jsx';
 import { Logo } from '../components/Logo.jsx';
 import { Sparkles } from 'lucide-react';
 
-export function Site() {
-  const [live, setLive] = useState(false);
-  const [liveScreen, setLiveScreen] = useState('welcome');
+// `initialLive` lets the intro sequence hand off directly into the live
+// prototype (Screen 1 — Welcome / mode select) instead of the marketing page.
+export function Site({ initialLive = false, initialLiveScreen = 'welcome' }) {
+  const [live, setLive] = useState(initialLive);
+  const [liveScreen, setLiveScreen] = useState(initialLiveScreen);
   const demoRef = useRef(null);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.3 });
