@@ -58,7 +58,11 @@ const TIERS = [
 ];
 
 export function Tiers() {
-  const { goBack } = useApp();
+  const { goBack, navigate } = useApp();
+  const openTier = (id) => {
+    if (id === 'concierge') navigate('concierge');
+    else if (id === 'plus') navigate('calculator');
+  };
   return (
     <div className="flex flex-col min-h-full bg-slate-50">
       <TopBar title="Plans" onBack={goBack} />
@@ -118,13 +122,14 @@ export function Tiers() {
                     <div className="text-[11px] font-bold uppercase tracking-wide text-slate-400 mb-2">Also à la carte</div>
                     <div className="space-y-1.5">
                       {t.alacarte.map((a) => (
-                        <div key={a} className="text-sm font-semibold text-amber-700 bg-amber-50 rounded-lg px-3 py-2">{a}</div>
+                        <button key={a} onClick={() => navigate('concierge')} className="w-full text-left text-sm font-semibold text-amber-700 bg-amber-50 hover:bg-amber-100 rounded-lg px-3 py-2 active:scale-[0.99] transition">{a}</button>
                       ))}
                     </div>
                   </div>
                 )}
 
                 <button
+                  onClick={() => openTier(t.id)}
                   className={`mt-5 w-full rounded-2xl py-3 font-extrabold active:scale-[0.99] transition ${
                     featured ? 'bg-white text-brand-700' : t.id === 'free' ? 'bg-slate-900 text-white' : 'bg-brand-600 text-white'
                   }`}

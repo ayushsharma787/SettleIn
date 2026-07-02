@@ -9,20 +9,19 @@ const LINES = [
 ];
 
 export function Generating() {
-  const { navigate, previewMode } = useApp();
+  const { navigate } = useApp();
   const [line, setLine] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setLine((l) => Math.min(l + 1, LINES.length - 1));
     }, 480);
-    // In the pinned scroll preview we hold on this screen; scroll drives the demo.
-    const done = previewMode ? null : setTimeout(() => navigate('roadmap'), 2100);
+    const done = setTimeout(() => navigate('roadmap'), 2100);
     return () => {
       clearInterval(interval);
-      if (done) clearTimeout(done);
+      clearTimeout(done);
     };
-  }, [navigate, previewMode]);
+  }, [navigate]);
 
   return (
     <div className="min-h-full flex flex-col items-center justify-center px-8 text-center bg-gradient-to-b from-white to-brand-50/40">

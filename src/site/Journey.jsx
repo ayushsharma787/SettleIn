@@ -31,7 +31,7 @@ export function Journey() {
   const label = useTransform(scrollYProgress, [0, 0.5, 0.75], ['Leaving India…', 'Somewhere over the Arabian Sea…', 'Descending into Dubai…']);
 
   return (
-    <section ref={ref} className="relative" style={{ height: '320vh' }}>
+    <section ref={ref} className="relative" style={{ height: '200vh' }}>
       <div className="sticky top-0 h-screen overflow-hidden">
         <motion.div className="absolute inset-0" style={{ backgroundColor: skyHue }} />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/40" />

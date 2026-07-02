@@ -73,7 +73,7 @@ export function ChaosOrder() {
   const logoOpacity = useTransform(scrollYProgress, [0.48, 0.58], [0, 1]);
 
   return (
-    <section ref={ref} className="relative bg-gradient-to-b from-white to-brand-50/40" style={{ height: '340vh' }}>
+    <section ref={ref} className="relative bg-gradient-to-b from-white to-brand-50/40" style={{ height: '230vh' }}>
       <div className="sticky top-0 h-screen overflow-hidden flex flex-col">
         {/* headlines */}
         <div className="relative z-20 pt-16 px-6 text-center h-40">

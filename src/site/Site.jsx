@@ -3,7 +3,8 @@ import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import { Hero } from './Hero.jsx';
 import { Journey } from './Journey.jsx';
 import { ChaosOrder } from './ChaosOrder.jsx';
-import { PhoneDemo } from './PhoneDemo.jsx';
+import { TryIt } from './TryIt.jsx';
+import { ConciergeSection } from './ConciergeSection.jsx';
 import { TimelineReveal } from './TimelineReveal.jsx';
 import { Finale } from './Finale.jsx';
 import { LiveOverlay } from './LiveOverlay.jsx';
@@ -49,8 +50,9 @@ export function Site() {
         <Journey />
         <ChaosOrder />
         <div ref={demoRef}>
-          <PhoneDemo onLaunch={() => launch('welcome')} />
+          <TryIt onLaunch={() => launch('welcome')} />
         </div>
+        <ConciergeSection onLaunch={launch} />
         <TimelineReveal />
         <Finale onLaunch={() => launch('welcome')} onWatch={scrollToDemo} />
       </main>
