@@ -104,9 +104,43 @@ export function Employer() {
           })}
         </div>
 
-        <div className="mt-5 rounded-2xl bg-brand-50 ring-1 ring-brand-100 p-4 text-center">
-          <div className="text-sm font-bold text-brand-800">Ahlan for Business — from AED 249/hire</div>
-          <div className="text-xs text-brand-600 mt-0.5">Contact us for team & enterprise pricing.</div>
+        {/* B2B pricing */}
+        <div className="mt-6">
+          <div className="text-xs font-bold tracking-[0.16em] uppercase text-slate-400 mb-2.5">Pricing</div>
+          <p className="text-sm text-slate-500 mb-3">
+            Employees use Ahlan for their first few months. One flat fee per onboarded hire
+            covers their full journey.
+          </p>
+          <div className="rounded-2xl bg-white ring-1 ring-slate-200 divide-y divide-slate-100 overflow-hidden">
+            {/* Priced tier */}
+            <div className="flex items-center justify-between gap-3 px-4 py-4 bg-brand-50/40">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="font-extrabold text-slate-900">Up to 3,000 employees</span>
+                  <span className="text-[10px] font-extrabold uppercase tracking-wide bg-brand-100 text-brand-700 rounded-full px-2 py-0.5">Your plan</span>
+                </div>
+                <div className="text-xs text-slate-500 mt-0.5">Pay as you hire</div>
+              </div>
+              <div className="text-right shrink-0">
+                <div className="text-xl font-extrabold text-brand-700">AED 249</div>
+                <div className="text-[11px] text-slate-400">per hire, one-time</div>
+              </div>
+            </div>
+            {/* Contact-us tier */}
+            <div className="flex items-center justify-between gap-3 px-4 py-4">
+              <div>
+                <div className="font-extrabold text-slate-900">More than 3,000 employees</div>
+                <div className="text-xs text-slate-500 mt-0.5">Custom SLAs &amp; integrations</div>
+              </div>
+              <div className="text-right shrink-0">
+                <div className="text-base font-extrabold text-slate-900">Contact us</div>
+                <div className="text-[11px] text-slate-400">for more information</div>
+              </div>
+            </div>
+          </div>
+          <button className="mt-3 w-full rounded-2xl bg-slate-900 text-white font-bold py-3 active:scale-[0.99] transition">
+            Contact sales
+          </button>
         </div>
       </div>
 
