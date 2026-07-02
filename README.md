@@ -29,7 +29,7 @@ off to the real, fully-interactive product in a phone frame.
 - **Step detail** — required documents, the correct portal (GDRFA / ICP / DEWA / Ejari / RTA…), processing time, the one common mistake to avoid, a dependency explanation, and referral cards (banks, insurance, telecom, housing) with an explicit-consent modal.
 - **Pricing** — Free · Plus (AED 99) · Concierge (AED 499).
 - **Cost calculator** — live first-3-months budget by emirate, family size and area.
-- **Employer view** — Nexa Tech, six employees, progress bars, stuck-employee flags, an invite-new-hire modal, "For employer / For employee" tabs (the employee tab shows James Miller's read-only roadmap), and B2B pricing (one-time per-hire fee with volume tiers by company size).
+- **Employer view** — Nexa Tech, six employees, progress bars, stuck-employee flags, an invite-new-hire modal, "For employer / For employee" tabs (the employee tab shows James Miller's read-only roadmap), a compliance radar (visa / Emirates ID / insurance expiry alerts), and B2B pricing: one-time per-hire onboarding fees with volume tiers by company size, plus the recurring **Ahlan Monitor** subscription for analytics, monitoring and renewal notifications.
 
 Pre-loaded persona: **Priya Sharma**, 29, Graphic Designer, employer-sponsored,
 Dubai, Indian driving licence, visa already handled — currently on *Personal bank

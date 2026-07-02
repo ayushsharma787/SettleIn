@@ -5,7 +5,7 @@ import { STEP_MAP } from '../data/steps.js';
 import { TopBar } from '../components/PhoneFrame.jsx';
 import { MiniBar } from '../components/ProgressBar.jsx';
 import { EmployeeSnapshot } from './EmployerEmployee.jsx';
-import { AlertTriangle, ChevronRight, Eye, Plus, UserPlus, X, Check } from 'lucide-react';
+import { AlertTriangle, BellRing, CalendarClock, ChevronRight, Eye, IdCard, Plus, UserPlus, X, Check } from 'lucide-react';
 
 // One-time fee per onboarded hire; the rate drops with company size.
 // No recurring per-seat billing — onboarding is a first-few-months journey.
@@ -14,6 +14,24 @@ const PRICING_TIERS = [
   { size: '51 – 500 employees', note: 'Annual hiring volume', price: 'AED 199', per: 'per hire, one-time', min: 51, max: 500 },
   { size: '501 – 10,000 employees', note: 'Dedicated success manager', price: 'AED 149', per: 'per hire, one-time', min: 501, max: 10000 },
   { size: '10,000+ employees', note: 'Custom SLAs & integrations', price: 'Custom', per: 'volume deal', min: 10001, max: Infinity },
+];
+
+// Ahlan Monitor — the recurring layer. Onboarding is one-time, but staying
+// compliant isn't: visas, Emirates IDs and permits all expire. Continuous
+// monitoring + analytics is what justifies a subscription.
+const MONITOR_FEATURES = [
+  'Workforce analytics dashboard',
+  'Visa, Emirates ID & work-permit expiry alerts',
+  'Renewal reminders, pushed before deadlines',
+  'Stuck-hire monitoring & notifications',
+  'Quarterly compliance reports',
+];
+
+// Sample alerts for the dashboard's compliance radar (demo data).
+const RADAR_ALERTS = [
+  { icon: CalendarClock, text: "Ahmed Al-Rashid's residence visa expires in 42 days", urgency: 'amber' },
+  { icon: IdCard, text: '3 Emirates IDs due for renewal this quarter', urgency: 'brand' },
+  { icon: BellRing, text: "Fatima Noor's health insurance renews on Aug 1", urgency: 'brand' },
 ];
 
 export function Employer() {
@@ -89,6 +107,33 @@ export function Employer() {
             <Stat label="Stuck" value={employees.filter((e) => e.stuck).length} amber />
             <Stat label="Settled" value={employees.filter((e) => employeeRoadmap(e).pct === 100).length} />
           </div>
+        </div>
+
+        {/* Compliance radar — the live monitoring layer (Ahlan Monitor) */}
+        <div className="mt-5 flex items-center justify-between mb-3">
+          <div className="text-xs font-bold tracking-[0.16em] uppercase text-slate-400">Compliance radar</div>
+          <span className="text-[9px] font-extrabold uppercase tracking-wide text-brand-700 bg-brand-100 rounded-full px-2 py-0.5">
+            Ahlan Monitor
+          </span>
+        </div>
+        <div className="rounded-2xl bg-white ring-1 ring-slate-200 shadow-sm divide-y divide-slate-100">
+          {RADAR_ALERTS.map((alert) => {
+            const AlertIcon = alert.icon;
+            const amber = alert.urgency === 'amber';
+            return (
+              <div key={alert.text} className="flex items-center gap-3 px-3.5 py-2.5">
+                <span className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${amber ? 'bg-amber-50 text-amber-600' : 'bg-brand-50 text-brand-600'}`}>
+                  <AlertIcon className="w-4 h-4" />
+                </span>
+                <span className="text-xs font-semibold text-slate-700 leading-snug">{alert.text}</span>
+                {amber && (
+                  <span className="ml-auto shrink-0 text-[9px] font-extrabold uppercase text-amber-700 bg-amber-100 rounded-full px-2 py-0.5">
+                    Act soon
+                  </span>
+                )}
+              </div>
+            );
+          })}
         </div>
 
         <div className="mt-5 text-xs font-bold tracking-[0.16em] uppercase text-slate-400 mb-3">Team progress</div>
@@ -181,6 +226,37 @@ export function Employer() {
             })}
           </div>
         </div>
+        {/* Ahlan Monitor — recurring subscription for the compliance layer */}
+        <div className="mt-3 relative rounded-3xl bg-gradient-to-br from-brand-600 to-brand-800 text-white p-5 shadow-lg shadow-brand-600/25">
+          <span className="absolute -top-2.5 right-4 bg-amber-400 text-slate-900 text-[10px] font-extrabold uppercase tracking-wide px-2.5 py-0.5 rounded-full">
+            Recurring
+          </span>
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-xl bg-white/15 text-amber-300 flex items-center justify-center">
+              <BellRing className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="font-extrabold text-lg leading-tight">Ahlan Monitor</div>
+              <div className="text-[11px] text-brand-100 font-semibold">Compliance never stops — this plan doesn't either</div>
+            </div>
+          </div>
+          <div className="mt-3 flex items-end gap-1.5">
+            <div className="text-3xl font-extrabold">AED 19</div>
+            <div className="text-sm text-brand-100 mb-1">per employee / month</div>
+          </div>
+          <div className="text-[11px] text-brand-100">AED 15 /employee/month billed annually · covers your whole workforce</div>
+          <div className="mt-4 space-y-2">
+            {MONITOR_FEATURES.map((f) => (
+              <div key={f} className="flex items-start gap-2.5">
+                <span className="w-4.5 h-4.5 rounded-full bg-white/20 text-white flex items-center justify-center shrink-0 mt-0.5">
+                  <Check className="w-3 h-3" strokeWidth={3} />
+                </span>
+                <span className="text-sm text-brand-50">{f}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="mt-3 rounded-2xl bg-brand-50 ring-1 ring-brand-100 p-3 text-center">
           <div className="text-xs text-brand-700 font-semibold">
             10,000+ employees or bulk relocations? Contact us for a custom volume deal.
