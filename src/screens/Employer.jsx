@@ -4,15 +4,19 @@ import { COMPANY, employeeRoadmap } from '../data/employer.js';
 import { STEP_MAP } from '../data/steps.js';
 import { TopBar } from '../components/PhoneFrame.jsx';
 import { MiniBar } from '../components/ProgressBar.jsx';
-import { AlertTriangle, ChevronRight, Plus, UserPlus, X, Check } from 'lucide-react';
+import { EmployeeSnapshot } from './EmployerEmployee.jsx';
+import { AlertTriangle, ChevronRight, Eye, Plus, UserPlus, X, Check } from 'lucide-react';
 
 export function Employer() {
   const { goBack, employees, openEmployee, addEmployee } = useApp();
   const [inviteOpen, setInviteOpen] = useState(false);
+  const [tab, setTab] = useState('employer');
   const [form, setForm] = useState({ name: '', email: '', visaType: 'Employer-sponsored', emirate: 'Dubai' });
   const [justAdded, setJustAdded] = useState(false);
 
   const onboarding = employees.filter((e) => employeeRoadmap(e).pct < 100).length;
+  // The employee-side preview shows one of the team members (James Miller).
+  const previewEmployee = employees.find((e) => e.id === 'james') || employees[0];
 
   const submit = () => {
     if (!form.name.trim()) return;
@@ -38,6 +42,30 @@ export function Employer() {
       />
 
       <div className="px-5 py-5 screen-in">
+        {/* Employer / employee tabs */}
+        <div className="flex rounded-2xl bg-slate-100 p-1 mb-5">
+          <TabButton active={tab === 'employer'} onClick={() => setTab('employer')}>
+            For employer
+          </TabButton>
+          <TabButton active={tab === 'employee'} onClick={() => setTab('employee')}>
+            For employee
+          </TabButton>
+        </div>
+
+        {tab === 'employee' ? (
+          <div className="screen-in">
+            <div className="mb-4 flex items-center justify-between rounded-2xl bg-brand-50 ring-1 ring-brand-100 px-4 py-3">
+              <div className="text-xs font-bold text-brand-800">
+                What {previewEmployee.name.split(' ')[0]} sees in Ahlan
+              </div>
+              <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase text-slate-500 bg-white rounded-full px-2 py-1 ring-1 ring-slate-200">
+                <Eye className="w-3 h-3" /> Read-only
+              </span>
+            </div>
+            <EmployeeSnapshot emp={previewEmployee} />
+          </div>
+        ) : (
+        <div className="screen-in">
         {/* Company header */}
         <div className="rounded-3xl bg-gradient-to-br from-slate-900 to-slate-800 text-white p-5">
           <div className="flex items-center gap-3">
@@ -104,10 +132,36 @@ export function Employer() {
           })}
         </div>
 
-        <div className="mt-5 rounded-2xl bg-brand-50 ring-1 ring-brand-100 p-4 text-center">
-          <div className="text-sm font-bold text-brand-800">Ahlan for Business — from AED 249/hire</div>
-          <div className="text-xs text-brand-600 mt-0.5">Contact us for team & enterprise pricing.</div>
+        {/* B2B pricing */}
+        <div className="mt-6 text-xs font-bold tracking-[0.16em] uppercase text-slate-400 mb-3">
+          Ahlan for Business — plans
         </div>
+        <div className="grid grid-cols-2 gap-3">
+          <div className="rounded-2xl bg-white ring-1 ring-slate-200 p-4 shadow-sm">
+            <div className="text-[11px] font-extrabold uppercase tracking-wide text-slate-400">Per employee</div>
+            <div className="mt-2 flex items-end gap-1">
+              <div className="text-2xl font-extrabold text-slate-900">AED 249</div>
+            </div>
+            <div className="text-[11px] text-slate-500 font-semibold">per employee / month</div>
+            <div className="mt-2 text-[11px] text-slate-500">Billed monthly. Add or remove hires anytime.</div>
+          </div>
+          <div className="relative rounded-2xl bg-gradient-to-br from-brand-600 to-brand-800 text-white p-4 shadow-lg shadow-brand-600/25">
+            <span className="absolute -top-2.5 right-3 bg-amber-400 text-slate-900 text-[10px] font-extrabold uppercase tracking-wide px-2 py-0.5 rounded-full">
+              Save 20%
+            </span>
+            <div className="text-[11px] font-extrabold uppercase tracking-wide text-brand-100">Yearly plan</div>
+            <div className="mt-2 flex items-end gap-1">
+              <div className="text-2xl font-extrabold">AED 2,390</div>
+            </div>
+            <div className="text-[11px] text-brand-100 font-semibold">per employee / year</div>
+            <div className="mt-2 text-[11px] text-brand-50/90">Two months free vs monthly billing.</div>
+          </div>
+        </div>
+        <div className="mt-3 rounded-2xl bg-brand-50 ring-1 ring-brand-100 p-3 text-center">
+          <div className="text-xs text-brand-700 font-semibold">Contact us for team & enterprise pricing.</div>
+        </div>
+        </div>
+        )}
       </div>
 
       {/* Invite modal */}
@@ -158,6 +212,19 @@ export function Employer() {
         </div>
       )}
     </div>
+  );
+}
+
+function TabButton({ active, onClick, children }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`flex-1 rounded-xl py-2 text-sm font-extrabold transition ${
+        active ? 'bg-white text-slate-900 shadow-sm ring-1 ring-slate-200' : 'text-slate-500 hover:text-slate-700'
+      }`}
+    >
+      {children}
+    </button>
   );
 }
 

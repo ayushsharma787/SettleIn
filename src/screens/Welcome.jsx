@@ -1,6 +1,5 @@
 import { useApp } from '../context/AppContext.jsx';
-import { Logo } from '../components/Logo.jsx';
-import { User, Building2, ArrowRight, Sparkles } from 'lucide-react';
+import { User, Building2, ArrowRight } from 'lucide-react';
 
 export function Welcome() {
   const { navigate, loadPersona } = useApp();
@@ -19,10 +18,6 @@ export function Welcome() {
             next, in what order, with which documents — and link you to the right
             official portal.
           </p>
-          <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-white/12 ring-1 ring-white/20 px-3.5 py-1.5 text-sm font-semibold">
-            <Sparkles className="w-4 h-4 text-brand-100" />
-            From six weeks of chaos to six hours of clarity
-          </div>
         </div>
       </div>
 

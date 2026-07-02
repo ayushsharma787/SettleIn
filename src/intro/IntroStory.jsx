@@ -28,7 +28,7 @@ import Lenis from 'lenis';
 import { motion } from 'framer-motion';
 import { ArrowRight, ChevronDown, Sparkles } from 'lucide-react';
 import { Logo } from '../components/Logo.jsx';
-import { Cloud, IndiaSkyline, DubaiSkyline, PassportStamp } from '../site/illustrations.jsx';
+import { Cloud, IndiaSkyline, DubaiSkyline, PassportStamp } from './illustrations.jsx';
 import { Traveler, StoryPlane, Sun, CHIPS, CHIP_SPOTS, Chip, MiniRoadmapPhone } from './scenes.jsx';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);

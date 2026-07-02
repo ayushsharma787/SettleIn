@@ -8,20 +8,17 @@ of the existing app.
 
 ## Files
 
-| File             | What it is |
-| ---------------- | ---------- |
-| `IntroStory.jsx` | The whole sequence: Lenis smooth scrolling, the pinned GSAP master timeline (`ScrubStory`), and the reduced-motion fallback (`StaticStory`). |
-| `scenes.jsx`     | Flat/geometric SVG + Tailwind building blocks: `Traveler`, `Sun`, the paperwork `Chip`s, and `MiniRoadmapPhone` (a stylized preview of the real Roadmap screen). Skylines/plane/stamp are reused from `src/site/illustrations.jsx`. |
+| File                | What it is |
+| ------------------- | ---------- |
+| `IntroStory.jsx`    | The whole sequence: Lenis smooth scrolling, the pinned GSAP master timeline (`ScrubStory`), and the reduced-motion fallback (`StaticStory`). |
+| `scenes.jsx`        | Flat/geometric SVG + Tailwind building blocks: `Traveler`, `StoryPlane`, `Sun`, the paperwork `Chip`s, and `MiniRoadmapPhone` (a stylized preview of the real Roadmap screen). |
+| `illustrations.jsx` | Inline SVG skylines (India / Dubai), clouds and the passport stamp. |
 
-Nothing inside the existing 7-screen prototype (`src/screens/`,
-`src/PrototypeShell.jsx`, `src/context/`) was changed. The only touch points
-outside `src/intro/` are:
-
-- `src/App.jsx` — mounts `IntroStory` first and swaps to `<Site>` on
-  skip/CTA (`SHOW_INTRO` flag).
-- `src/site/Site.jsx` — gained optional `initialLive` / `initialLiveScreen`
-  props (default off) so the intro can hand off straight into the live
-  prototype at the Welcome screen.
+Nothing inside the screens of the prototype (`src/screens/`,
+`src/PrototypeShell.jsx`, `src/context/`) depends on the intro. The only touch
+point outside `src/intro/` is `src/App.jsx`, which mounts `IntroStory` first
+and crossfades to `AppExperience` (the phone-framed prototype, starting on the
+Welcome screen) on skip/CTA — controlled by the `SHOW_INTRO` flag.
 
 ## How to disable
 
@@ -31,15 +28,16 @@ Set the flag in `src/App.jsx`:
 const SHOW_INTRO = false;
 ```
 
-The app then renders exactly as before (marketing site, prototype behind
-"Try the app"). No other change needed.
+The app then boots straight into the phone-framed prototype. No other change
+needed.
 
 ## How to remove entirely
 
 1. Delete `src/intro/`.
-2. Restore `src/App.jsx` to `export default function App() { return <Site />; }`.
-3. (Optional) Remove the now-unused `initialLive` props from `src/site/Site.jsx`
-   and drop the `@gsap/react` + `lenis` dependencies from `package.json`.
+2. In `src/App.jsx`, remove the `IntroStory` import, the `SHOW_INTRO` flag and
+   the intro branch, leaving `AppExperience` as the only render.
+3. (Optional) Drop the `@gsap/react`, `gsap` + `lenis` dependencies from
+   `package.json`.
 
 ## Behaviour notes
 
