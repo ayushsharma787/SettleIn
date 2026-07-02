@@ -7,6 +7,15 @@ import { MiniBar } from '../components/ProgressBar.jsx';
 import { EmployeeSnapshot } from './EmployerEmployee.jsx';
 import { AlertTriangle, ChevronRight, Eye, Plus, UserPlus, X, Check } from 'lucide-react';
 
+// One-time fee per onboarded hire; the rate drops with company size.
+// No recurring per-seat billing — onboarding is a first-few-months journey.
+const PRICING_TIERS = [
+  { size: 'Up to 50 employees', note: 'Pay as you hire', price: 'AED 249', per: 'per hire, one-time', min: 0, max: 50 },
+  { size: '51 – 500 employees', note: 'Annual hiring volume', price: 'AED 199', per: 'per hire, one-time', min: 51, max: 500 },
+  { size: '501 – 10,000 employees', note: 'Dedicated success manager', price: 'AED 149', per: 'per hire, one-time', min: 501, max: 10000 },
+  { size: '10,000+ employees', note: 'Custom SLAs & integrations', price: 'Custom', per: 'volume deal', min: 10001, max: Infinity },
+];
+
 export function Employer() {
   const { goBack, employees, openEmployee, addEmployee } = useApp();
   const [inviteOpen, setInviteOpen] = useState(false);
@@ -132,33 +141,50 @@ export function Employer() {
           })}
         </div>
 
-        {/* B2B pricing */}
+        {/* B2B pricing — one-time per onboarded hire, cheaper at volume.
+            Onboarding is a first-few-months journey, so there is no
+            recurring per-seat fee. */}
         <div className="mt-6 text-xs font-bold tracking-[0.16em] uppercase text-slate-400 mb-3">
-          Ahlan for Business — plans
+          Ahlan for Business — pricing
         </div>
-        <div className="grid grid-cols-2 gap-3">
-          <div className="rounded-2xl bg-white ring-1 ring-slate-200 p-4 shadow-sm">
-            <div className="text-[11px] font-extrabold uppercase tracking-wide text-slate-400">Per employee</div>
-            <div className="mt-2 flex items-end gap-1">
-              <div className="text-2xl font-extrabold text-slate-900">AED 249</div>
+        <div className="rounded-3xl bg-white ring-1 ring-slate-200 shadow-sm overflow-hidden">
+          <div className="px-4 pt-4 pb-3">
+            <div className="text-sm font-extrabold text-slate-900">Pay per hire, not per seat</div>
+            <div className="mt-1 text-xs text-slate-500 leading-relaxed">
+              Employees use Ahlan for their first few months. One flat fee per
+              onboarded hire covers their full journey — volume pricing by
+              company size.
             </div>
-            <div className="text-[11px] text-slate-500 font-semibold">per employee / month</div>
-            <div className="mt-2 text-[11px] text-slate-500">Billed monthly. Add or remove hires anytime.</div>
           </div>
-          <div className="relative rounded-2xl bg-gradient-to-br from-brand-600 to-brand-800 text-white p-4 shadow-lg shadow-brand-600/25">
-            <span className="absolute -top-2.5 right-3 bg-amber-400 text-slate-900 text-[10px] font-extrabold uppercase tracking-wide px-2 py-0.5 rounded-full">
-              Save 20%
-            </span>
-            <div className="text-[11px] font-extrabold uppercase tracking-wide text-brand-100">Yearly plan</div>
-            <div className="mt-2 flex items-end gap-1">
-              <div className="text-2xl font-extrabold">AED 2,390</div>
-            </div>
-            <div className="text-[11px] text-brand-100 font-semibold">per employee / year</div>
-            <div className="mt-2 text-[11px] text-brand-50/90">Two months free vs monthly billing.</div>
+          <div className="divide-y divide-slate-100">
+            {PRICING_TIERS.map((tier) => {
+              const current = COMPANY.seats >= tier.min && COMPANY.seats <= tier.max;
+              return (
+                <div key={tier.size} className={`flex items-center gap-3 px-4 py-3 ${current ? 'bg-brand-50/60' : ''}`}>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-bold text-slate-800">{tier.size}</span>
+                      {current && (
+                        <span className="text-[9px] font-extrabold uppercase tracking-wide text-brand-700 bg-brand-100 rounded-full px-2 py-0.5">
+                          Your plan
+                        </span>
+                      )}
+                    </div>
+                    <div className="text-[11px] text-slate-400 font-semibold">{tier.note}</div>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <div className={`text-base font-extrabold ${current ? 'text-brand-700' : 'text-slate-900'}`}>{tier.price}</div>
+                    {tier.per && <div className="text-[10px] text-slate-400 font-semibold">{tier.per}</div>}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
         <div className="mt-3 rounded-2xl bg-brand-50 ring-1 ring-brand-100 p-3 text-center">
-          <div className="text-xs text-brand-700 font-semibold">Contact us for team & enterprise pricing.</div>
+          <div className="text-xs text-brand-700 font-semibold">
+            10,000+ employees or bulk relocations? Contact us for a custom volume deal.
+          </div>
         </div>
         </div>
         )}
